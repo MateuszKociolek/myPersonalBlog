@@ -2,15 +2,39 @@
     <div class="loginForm">
         <h2>Zaloguj</h2>
 
-        <input type="text" id="loginInput">
-        <input type="text" id="loginInput">
+        <input v-model="email" type="email" id="loginInput" placeholder="Email">
+        <input v-model="password" type="password" id="loginInput" placeholder="Password">
 
-        <button id="loginButton">Zaloguj</button>
+        <button id="loginButton" @click="logIn">Zaloguj</button>
     </div>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
-    
+    data() {
+        return {
+            email: "",
+            password: ""
+        }
+    },
+    methods: {
+        logIn() {
+            const logData = {
+                email: this.email,
+                password: this.password,
+                username: "new"
+            }
+
+            axios.post("http://127.0.0.1:8000/logToAccount/", logData)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        }
+    },
 }
 </script>
 <style lang="css">
@@ -29,11 +53,20 @@ export default {
     }
 
     #loginInput{
+        font-family: 'Inclusive Sans', sans-serif;
         border: 2px solid #0077B6;
         border-radius: 5px;
         margin-bottom: 7px;
         height: 36px;
         width: 100%;
+        text-indent: 23px;
+        font-size: 111%;
+    }
+
+    #loginInput::placeholder{
+        font-weight: bold;
+        /* font-size: 111%; */
+        opacity: 0.65;
     }
 
     #loginButton{
