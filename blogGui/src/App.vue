@@ -1,9 +1,13 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link>
+  <nav class="flex items-center justify-around h-10">
+    <div>
+      <router-link class="mx-12 duration-200" to="/">Home</router-link>
+    </div>
+    <div>
+      <router-link class="mx-12 duration-200" to="/login">Login</router-link>
+    </div>
   </nav>
-  <router-view/>
+  <router-view class="mt-6"/>
 </template>
 
 <style>
@@ -15,10 +19,6 @@
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
-}
-
 nav a {
   font-weight: bold;
   color: #2c3e50;
@@ -27,6 +27,6 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #0077B6;
+  color: #ff9f1c;
 }
 </style>

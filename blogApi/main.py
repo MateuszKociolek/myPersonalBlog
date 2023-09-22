@@ -37,11 +37,10 @@ async def showAllUsers():
 
 @app.post("/logToAccount/")
 async def logToAccount(user: User):
-    try:
-        res = log_To_Account(user)  
-        return {"res": res}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+    res = log_To_Account(user)  
+    return {"res": res}
+
 
 @app.on_event("shutdown")
 def shutdown_db_connections():

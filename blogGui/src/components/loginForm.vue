@@ -1,11 +1,20 @@
 <template>
-    <div class="loginForm">
-        <h2>Zaloguj</h2>
+    <div class="flex flex-col items-center">
+        <p class="font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-sky-700 to-sky-400 mt-6">Log In</p>
 
-        <input v-model="email" type="email" id="loginInput" placeholder="Email">
-        <input v-model="password" type="password" id="loginInput" placeholder="Password">
+        <input v-model="email" type="email" class="mb-6 mt-6 border-solid border-2 border-sky-500 w-80 h-10 rounded-md pl-[14px]" placeholder="Email">
+        <input v-model="password" type="password" class="mb-6 border-solid border-2 border-sky-500 w-80 h-10 rounded-md pl-[14px]" placeholder="Password">
 
-        <button id="loginButton" @click="logIn">Zaloguj</button>
+        
+        <div class="flex ">
+            <button class="bg-sky-500 h-10 w-28 rounded text-slate-50 font-mono duration-300 hover:bg-sky-700" @click="logIn">Log In</button>
+            <div class="ml-4">
+                <p class="text-xs">If you dont have account</p>
+                <router-link class="font-blod text-xs text-transparent bg-clip-text bg-gradient-to-r from-sky-700 to-sky-400" to="/register">Sign In</router-link>
+            </div>
+        </div>
+
+        <p class="text-red-600">{{ errMsg }}</p>
     </div>
 </template>
 <script>
@@ -15,7 +24,8 @@ export default {
     data() {
         return {
             email: "",
-            password: ""
+            password: "",
+            errMsg: ""
         }
     },
     methods: {
@@ -23,61 +33,28 @@ export default {
             const logData = {
                 email: this.email,
                 password: this.password,
-                username: "new"
+                username: ""
             }
 
             axios.post("http://127.0.0.1:8000/logToAccount/", logData)
             .then(res => {
                 console.log(res)
+                if(Object.keys(res.data.res).length === 0) {
+                    this.errMsg = "Incorrect email or password"
+                }else{
+                    this.$router.push("/")
+                }
             })
             .catch(err =>{
                 console.log(err)
+                
             })
+            this.email = ""
+            this.password = ""
+
         }
     },
 }
 </script>
-<style lang="css">
-    @import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans&display=swap');
-
-    .loginForm{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 38%;
-        
-    }
-
-    h2 {
-     font-size: 162%;
-    }
-
-    #loginInput{
-        font-family: 'Inclusive Sans', sans-serif;
-        border: 2px solid #0077B6;
-        border-radius: 5px;
-        margin-bottom: 7px;
-        height: 36px;
-        width: 100%;
-        text-indent: 23px;
-        font-size: 111%;
-    }
-
-    #loginInput::placeholder{
-        font-weight: bold;
-        /* font-size: 111%; */
-        opacity: 0.65;
-    }
-
-    #loginButton{
-        font-family: 'Inclusive Sans', sans-serif;
-        width: 60%;
-        height: 35px;
-        background-color: #0096C7;
-        border:  none;
-        border-radius: 3px;
-        color:  white;
-        font-size:  100%;
-
-    }
+<style>
 </style>
