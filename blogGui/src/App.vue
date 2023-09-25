@@ -3,12 +3,21 @@
     <div>
       <router-link class="mx-12 duration-200" to="/">Home</router-link>
     </div>
-    <div>
+    <div v-if="!$store.state.isLogged">
       <router-link class="mx-12 duration-200" to="/login">Login</router-link>
+    </div>
+    <div v-if="$store.state.isLogged">
+      <router-link class="mx-12 duration-200" to="/login">Profile</router-link>
     </div>
   </nav>
   <router-view class="mt-6"/>
 </template>
+
+<script>
+export default {
+  
+}
+</script>
 
 <style>
 #app {

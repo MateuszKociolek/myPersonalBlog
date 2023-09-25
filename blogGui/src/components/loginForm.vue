@@ -43,6 +43,7 @@ export default {
                     this.errMsg = "Incorrect email or password"
                 }else{
                     this.$router.push("/")
+                    this.$store.commit('changeLoggedStatus');
                 }
             })
             .catch(err =>{

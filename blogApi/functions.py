@@ -1,4 +1,5 @@
 import models.model as mdl
+from fastapi.responses import JSONResponse
 from db.dbConfig import db_connections, db_cursor
 
 def createNewUser(user: mdl.User):

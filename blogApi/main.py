@@ -33,13 +33,14 @@ async def add_new_user(user: User):
 @app.get("/showAllUsers")
 async def showAllUsers():
     res = show_all_users()
-    return {"res": res}
+    formatted_data = [{"userId": row[0], "email": row[1], "password": row[2], "username": row[3]} for row in res]
+    return {"res": formatted_data}
 
 @app.post("/logToAccount/")
 async def logToAccount(user: User):
-    
     res = log_To_Account(user)  
-    return {"res": res}
+    formatted_data = [{"userId": row[0], "email": row[1], "password": row[2], "username": row[3]} for row in res]
+    return {"res": formatted_data}
 
 
 @app.on_event("shutdown")
