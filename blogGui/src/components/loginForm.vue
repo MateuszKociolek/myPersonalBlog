@@ -37,11 +37,16 @@ export default {
             }
 
             axios.post("http://127.0.0.1:8000/logToAccount/", logData)
-            .then(res => {
-                console.log(res)
-                if(Object.keys(res.data.res).length === 0) {
+            .then(response => {
+                
+                const current_user_logged = response.data.res[0]["username"];
+                console.log(current_user_logged)
+                this.$store.dispatch('setCurrentLoggedUser', current_user_logged);
+
+                if(Object.keys(response.data.res).length === 0) {
                     this.errMsg = "Incorrect email or password"
                 }else{
+                    
                     this.$router.push("/")
                     this.$store.commit('changeLoggedStatus');
                 }
@@ -50,8 +55,6 @@ export default {
                 console.log(err)
                 
             })
-            this.email = ""
-            this.password = ""
 
         }
     },
