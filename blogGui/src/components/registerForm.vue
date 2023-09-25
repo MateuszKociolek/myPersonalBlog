@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import router from '@/router';
 import axios from 'axios';
 
 export default {
@@ -42,6 +43,7 @@ export default {
                 this.email = ""
                 this.password = ""
                 this.username = ""
+                router.push("/")
 
                 this.$store.commit('changeLoggedStatus');
             })

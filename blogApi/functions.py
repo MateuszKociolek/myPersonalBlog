@@ -1,13 +1,17 @@
 import models.model as mdl
 from fastapi.responses import JSONResponse
 from db.dbConfig import db_connections, db_cursor
+from fastapi import Response
 
 def createNewUser(user: mdl.User):
     sql = "insert into users(email, password, username) values (%s, %s, %s)"
     val = (user.email, user.password, user.username,)
     db_cursor.execute(sql, val)
     db_connections.commit()
-    return {"message": "User added properly"}
+    return {"res": {
+        "email":val[0],
+        "username":val[2],
+    }}
 
 def show_all_users():
     sql = "select * from users"
